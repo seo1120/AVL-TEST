@@ -187,21 +187,13 @@ private:
     }
 
     void inorderTree(Node* node, std::ostream& os) {
-        if (node == nullptr) return;
-
-        if (node->left != nullptr) {
-            os << "<";
-            inorderTree(node->left, os);
-            os << ">";
-        }
+         if (node == nullptr) return;
+        os << "<";
+         inorderTree(node->left, os);
 
         os << " " << node->key << " ";
-
-        if (node->right != nullptr) {
-            os << "<";
-            inorderTree(node->right, os);
-            os << ">";
-        }
+        inorderTree(node->right, os);
+        os << ">";
     }
 
 public:
