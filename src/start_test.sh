@@ -52,7 +52,7 @@ test_simple_case() {
 test_random_case() {
 	printf "${COLOR_PART}${UNDERLINE}TEST RANDOM CASES\n\n${DEFAULT}"
 	printf "${COLOR_TITLE}Generate test cases... "
-	generate_testcases 5
+	generate_testcases 100
 	printf "done\n\n${DEFAULT}"
 	sleep 1
 	printf "${COLOR_TITLE}${UNDERLINE}TEST CASE${DEFAULT}"
