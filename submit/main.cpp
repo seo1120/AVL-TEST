@@ -62,10 +62,10 @@ private:
         // 왼쪽 불균형
         if (balanceFactor > 1) {
             // LL 케이스
-            if (getBalance(node->left) >= 0) {
+            if (getBalance(node->left) > 0) {
                 return rotateRight(node);
             }
-            // LR 케이스
+                // LR 케이스
             else {
                 node->left = rotateLeft(node->left);
                 return rotateRight(node);
@@ -77,7 +77,7 @@ private:
             if (getBalance(node->right) < 0) {
                 return rotateLeft(node);
             }
-            // RL 케이스
+                // RL 케이스
             else {
                 node->right = rotateRight(node->right);
                 return rotateLeft(node);
@@ -156,7 +156,7 @@ private:
                     }
                 }
                 else if (leftHeight < rightHeight) {
-                    temp = minInRight(node->right); 
+                    temp = minInRight(node->right);
                     node->key = temp->key;
                     node->right = eraseAVL(node->right, temp->key, success);
                 }
@@ -168,7 +168,7 @@ private:
             }
         }
 
-        // 삭제 후 AVL 트리의 균형 유지 재귀적으로
+        // 삭제 후 AVL 트리의 균형 유지
         return balance(node);
     }
 
@@ -188,20 +188,12 @@ private:
 
     void inorderTree(Node* node, std::ostream& os) {
         if (node == nullptr) return;
-
-        if (node->left != nullptr) {
-            os << "<";
-            inorderTree(node->left, os);
-            os << ">";
-        }
+        os << "<";
+        inorderTree(node->left, os);
 
         os << " " << node->key << " ";
-
-        if (node->right != nullptr) {
-            os << "<";
-            inorderTree(node->right, os);
-            os << ">";
-        }
+        inorderTree(node->right, os);
+        os << ">";
     }
 
 public:
@@ -249,28 +241,28 @@ int main() {
 
     while (std::cin >> command >> key) {
         switch (command) {
-        case 'i': {
-            if (tree.insert(key)) {
-                std::cout << "<";
-                std::cout << tree;
-                std::cout << ">" << std::endl;
-            }
-            break;
-        }
+            case 'i': {
+                if (tree.insert(key)) {
 
-        case 'd': {
-            if (tree.erase(key)) {
-                if (tree.getRoot() != nullptr) {
-                    std::cout << "<";
                     std::cout << tree;
-                    std::cout << ">" << std::endl;
+                    std::cout <<  std::endl;
                 }
-                else {
-                    std::cout << std::endl; // 마지막 노드 삭제시 개행
-                }
+                break;
             }
-            break;
-        }
+
+            case 'd': {
+                if (tree.erase(key)) {
+                    if (tree.getRoot() != nullptr) {
+
+                        std::cout << tree;
+                        std::cout <<std::endl;
+                    }
+                    else {
+                        std::cout << std::endl; // 마지막 노드 삭제시 개행
+                    }
+                }
+                break;
+            }
         }
     }
     tree.clear();
