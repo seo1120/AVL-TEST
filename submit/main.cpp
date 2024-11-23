@@ -243,9 +243,9 @@ int main() {
         switch (command) {
         case 'i': {
             if (tree.insert(key)) {
-                std::cout << "<";
+               
                 std::cout << tree;
-                std::cout << ">" << std::endl;
+                std::cout <<  std::endl;
             }
             break;
         }
@@ -253,9 +253,9 @@ int main() {
         case 'd': {
             if (tree.erase(key)) {
                 if (tree.getRoot() != nullptr) {
-                    std::cout << "<";
+                   
                     std::cout << tree;
-                    std::cout << ">" << std::endl;
+                    std::cout <<std::endl;
                 }
                 else {
                     std::cout << std::endl; // 마지막 노드 삭제시 개행
