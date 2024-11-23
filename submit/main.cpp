@@ -61,11 +61,11 @@ private:
 
         // 왼쪽 불균형
         if (balanceFactor > 1) {
-            // Ll 케이스
+            // LL 케이스
             if (getBalance(node->left) >= 0) {
                 return rotateRight(node);
             }
-            // Lr 케이스
+            // LR 케이스
             else {
                 node->left = rotateLeft(node->left);
                 return rotateRight(node);
@@ -73,11 +73,11 @@ private:
         }
         // 오른쪽 불균형
         if (balanceFactor < -1) {
-            // Rr 케이스
+            // RR 케이스
             if (getBalance(node->right) < 0) {
                 return rotateLeft(node);
             }
-            // Rl 케이스
+            // RL 케이스
             else {
                 node->right = rotateRight(node->right);
                 return rotateLeft(node);
@@ -87,7 +87,7 @@ private:
     }
 
     // AVL 트리에 삽입
-    Node* insertAVL(Node* node, int key, bool& success) {
+    Node* insertAVL(Node* node, int key, bool& success) { // 재귀이기 때문에 실제 삽입이 됐는지 체크하기 위한 매개변수 추가
         if (node == nullptr) {
             return new Node(key);
         }
@@ -99,7 +99,7 @@ private:
             node->right = insertAVL(node->right, key, success);
         }
         else {
-            std::cout << "i " << key << ": The key already exists" << std::endl;
+            std::cout << "i " << key << ": The key already exists" << std::endl; // 이미 존재하는 경우에 에러 메세지 출력
             success = false;
             return node;
         }
@@ -108,7 +108,7 @@ private:
     }
 
     // AVL 트리에서 삭제
-    Node* eraseAVL(Node* node, int deleteKey, bool& success) {
+    Node* eraseAVL(Node* node, int deleteKey, bool& success) { // 재귀이기 때문에 실제 삽입이 됐는지 체크하기 위한 매개변수 추가
         if (node == nullptr) {
             // 노드가 없는 경우 에러 메시지 출력
             std::cout << "d " << deleteKey << ": The key does not exist" << std::endl;
@@ -156,7 +156,7 @@ private:
                     }
                 }
                 else if (leftHeight < rightHeight) {
-                    temp = minInRight(node->right);
+                    temp = minInRight(node->right); 
                     node->key = temp->key;
                     node->right = eraseAVL(node->right, temp->key, success);
                 }
@@ -167,7 +167,6 @@ private:
                 }
             }
         }
-
 
         // 삭제 후 AVL 트리의 균형 유지
         return balance(node);
@@ -210,7 +209,7 @@ public:
 
     bool insert(int key) {
         bool success = true;
-        root = insertAVL(root, key,success);
+        root = insertAVL(root, key, success);
         return success;
     }
 
@@ -267,7 +266,7 @@ int main() {
                     std::cout << ">" << std::endl;
                 }
                 else {
-                    std::cout << std::endl; // 개행
+                    std::cout << std::endl; // 마지막 노드 삭제시 개행
                 }
             }
             break;
