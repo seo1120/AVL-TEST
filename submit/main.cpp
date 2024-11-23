@@ -168,7 +168,7 @@ private:
             }
         }
 
-        // 삭제 후 AVL 트리의 균형 유지
+        // 삭제 후 AVL 트리의 균형 유지 재귀적으로
         return balance(node);
     }
 
@@ -187,13 +187,21 @@ private:
     }
 
     void inorderTree(Node* node, std::ostream& os) {
-         if (node == nullptr) return;
-        os << "<";
-         inorderTree(node->left, os);
+        if (node == nullptr) return;
+
+        if (node->left != nullptr) {
+            os << "<";
+            inorderTree(node->left, os);
+            os << ">";
+        }
 
         os << " " << node->key << " ";
-        inorderTree(node->right, os);
-        os << ">";
+
+        if (node->right != nullptr) {
+            os << "<";
+            inorderTree(node->right, os);
+            os << ">";
+        }
     }
 
 public:
@@ -243,9 +251,9 @@ int main() {
         switch (command) {
         case 'i': {
             if (tree.insert(key)) {
-               
+                std::cout << "<";
                 std::cout << tree;
-                std::cout <<  std::endl;
+                std::cout << ">" << std::endl;
             }
             break;
         }
@@ -253,9 +261,9 @@ int main() {
         case 'd': {
             if (tree.erase(key)) {
                 if (tree.getRoot() != nullptr) {
-                   
+                    std::cout << "<";
                     std::cout << tree;
-                    std::cout <<std::endl;
+                    std::cout << ">" << std::endl;
                 }
                 else {
                     std::cout << std::endl; // 마지막 노드 삭제시 개행
@@ -268,5 +276,3 @@ int main() {
     tree.clear();
     return 0;
 }
-
-
